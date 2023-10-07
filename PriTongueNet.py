@@ -186,7 +186,7 @@ def loss(y_true, y_pred):
                                         mindis = dis
                                         value_figure = figure[intp[0][0], intp[0][1]]
                             l = l+1
-                            point_loss = point_loss + value_figure*mindis*1e-3
+                            point_loss = point_loss + (1-value_figure)*mindis*1e-3
                 if  l!=0:
                     shapeloss = shapeloss+point_loss/l
 

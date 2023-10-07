@@ -18,7 +18,6 @@ physical_gpus = tf.config.list_physical_devices("GPU")
 tf.config.experimental.set_virtual_device_configuration(
     physical_gpus[0],
     [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=9000)]
-    # 将显存限制提高到6000MB
 )
 logical_gpus = tf.config.list_logical_devices("GPU")
 
@@ -65,18 +64,15 @@ def loss(y_true, y_pred):
     closs = closs+BCEloss(y_true, y_align_pred[0])
     #compute the loss between attention map and ground truth
     closs = closs+BCEloss(y_true, y_align_pred[-1])
-    # distill loss
-    temp1 = y_align_pred[0] / temperature
-    fused_pred = y_align_pred[0]
-
-    sdloss = sdloss + kd_loss_function(y_align_pred[1], temp1) * (temperature ** 2)
-    sdloss = sdloss + kd_loss_function(y_align_pred[2], temp1) * (temperature ** 2)
-    sdloss = sdloss + kd_loss_function(y_align_pred[3], temp1) * (temperature ** 2)
-    sdloss = sdloss + kd_loss_function(y_align_pred[4], temp1) * (temperature ** 2)
-
-
     if runEpoch==True: #if need shapeloss in experiment we set it True after 60 epoch
-
+         # distill loss
+        temp1 = y_align_pred[0] / temperature
+        fused_pred = y_align_pred[0]
+    
+        sdloss = sdloss + kd_loss_function(y_align_pred[1], temp1) * (temperature ** 2)
+        sdloss = sdloss + kd_loss_function(y_align_pred[2], temp1) * (temperature ** 2)
+        sdloss = sdloss + kd_loss_function(y_align_pred[3], temp1) * (temperature ** 2)
+        sdloss = sdloss + kd_loss_function(y_align_pred[4], temp1) * (temperature ** 2)
         #shapeloss will calculate after 60 epoch
         #get the images in a batch
         for i in range(len(fused_pred)):

@@ -4,7 +4,7 @@ Tongue segment Data and trained model are in the release.
 
 You also can download it at baiduyun disk:   
 
-https://pan.baidu.com/s/1d3PcfKqy2m-sGjEuPbk2jA?pwd=mmcs 
+https://pan.baidu.com/s/1d3PcfKqy2m-sGjEuPbk2jA
 
 Password：mmcs
 
